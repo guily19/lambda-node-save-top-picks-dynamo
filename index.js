@@ -8,26 +8,25 @@ export const handler = async message => {
   console.log(message);
 
   if (message.body) {
-    let bookmark = JSON.parse(message.body);
+    let pick = JSON.parse(message.body);
     let params = {
       TableName: process.env.TABLE_NAME,
       Item: {
-        id: bookmark.id,
-        url: bookmark.url,
-        name: bookmark.name,
-        description: bookmark.description,
-        username: bookmark.username ,
-        shared: bookmark.shared 
+        id: pick.id,
+        set: pick.set,
+        format: pick.format,
+        cards: pick.cards,
+        username: pick.username
       }
     };
-    console.log(`Adding bookmark to table ${process.env.TABLE_NAME}`);
+    console.log(`Adding pick to table ${process.env.TABLE_NAME}`);
     
     const command = new PutCommand(params);
 
     const response = await docClient.send(command);
     console.log(response);
   
-    console.log(`New bookmark added to the inventory`);
+    console.log(`New pick added to the inventory`);
       
     }
     
@@ -38,4 +37,3 @@ export const handler = async message => {
   };
 
 };
-
